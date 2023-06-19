@@ -1,0 +1,30 @@
+---
+server_name: "wordpress.loc" # тут ваш домен
+mysql_db: "wordpress"
+mysql_user: "wordpress"
+mysql_password: "WordpreSS0!"
+
+nginx_listen: "80"
+nginx_root: "/var/www/{{ server_name }}/wordpress"
+nginx_index: "index.php index.html index.htm"
+nginx_server_name: "{{ server_name }} www.{{ server_name }}"
+nginx_client_max_body_size: "32M"
+      
+php_memory_limit: "128M"
+php_max_execution_time: "90"
+php_upload_max_filesize: "256M"
+php_webserver_daemon: "nginx"
+php_packages:
+  - php-mysql
+  - php-fpm
+
+mysql_databases:
+  - name: "{{ mysql_db }}"
+    encoding: utf8
+    collation: utf8_general_ci
+
+mysql_users:
+  - name: "{{ mysql_user }}"
+    host: "%"
+    password: "{{ mysql_password }}"
+    priv: "wordpress.*:ALL"

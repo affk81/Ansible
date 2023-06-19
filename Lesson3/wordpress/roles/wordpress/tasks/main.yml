@@ -1,0 +1,35 @@
+---
+# tasks file for wordpress
+
+# WordPress Configuration
+- name: create /var/www/{{ server_name }}
+  file:
+    path: /var/www/{{ server_name }}
+    state: directory
+    recurse: true
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Download and unpack latest WordPress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /var/www/{{ server_name }}
+    remote_src: true
+    creates: /var/www/{{ server_name }}/wordpress
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Set up wp-config
+  template:
+    src: "wp-config.php.j2"
+    dest: "/var/www/{{ server_name }}/wordpress/wp-config.php"
+
+- name: Set up Nginx default available sites
+  template:
+    src: nginx_default_sites.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: 0644
