@@ -1,0 +1,30 @@
+---
+# tasks file for vagrant
+- name: Install Virtual Box
+  apt:
+    name: "virtualbox"
+    state: present
+
+- name: Install vagrant
+  apt:
+    name: "vagrant"
+    state: present  
+
+- name: create vagrant project directory
+  file:
+    path: projects/{{ vagrant_project_folder }}
+    state: directory
+    owner: afk
+    group: afk
+    mode: 0755
+
+- name: Set up vagrant file
+  template:
+    src: "Vagrantfile"
+    dest: "projects/{{ vagrant_project_folder }}"
+
+- name: vagrant up
+  become: false
+  shell:
+    cmd: vagrant up
+    chdir: "projects/{{ vagrant_project_folder }}"

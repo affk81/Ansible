@@ -1,0 +1,7 @@
+---
+- hosts: vagrant
+
+  vars_files:
+    - vars/vagrant.yml
+  roles:
+     - vagrant
