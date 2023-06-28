@@ -2,6 +2,15 @@
 - hosts: vagrant
 
   vars_files:
-    - vars/vagrant.yml
+    - vars/project.yml
   roles:
-     - vagrant
+    - vagrant
+
+- hosts: database_server
+
+  vars_files:
+    - vars/project.yml
+    - vars/project_vault.yml
+  roles:
+    - mysql
+    

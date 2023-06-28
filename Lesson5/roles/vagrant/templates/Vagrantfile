@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     data_server.vm.network "public_network", ip: "192.168.2.80"
 
   end
- # 
+  
   config.vm.define "app_server1" do |app_server1|
     app_server1.vm.box = "ubuntu/focal64"
     app_server1.vm.network "public_network", ip: "192.168.2.81"
