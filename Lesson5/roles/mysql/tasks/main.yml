@@ -1,0 +1,52 @@
+---
+# tasks file for mysql
+
+- name: Install MySQL Server
+  apt:
+    name: "mysql-server"
+    update_cache: true
+    state: present
+
+- name: Install MySQL Python libraries
+  apt:
+    name: "python3-pymysql"
+    update_cache: true
+    state: present
+
+
+- name: update mysql root password for root account
+  become: true 
+  mysql_user: 
+    name: root
+    host: localhost
+    password: "{{ mysql_root_password }}" 
+    login_user: root
+    login_password: '{{ mysql_root_password }}' 
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present  
+
+- name: Set up MySQL my.cnf
+  template:
+    src: sqlcnf.j2
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: 0600
+
+
+- name: Create DB for Wordpress
+  mysql_db:
+    name: "{{ mysql_db }}"
+    encoding: utf8
+    collation: utf8_general_ci
+    state: present
+
+
+- name: Create user for DB Wordbress
+  mysql_user:
+    name: "{{ mysql_user }}"
+    host: localhost
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_db }}.*:ALL"

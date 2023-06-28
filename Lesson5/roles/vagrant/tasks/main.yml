@@ -1,5 +1,6 @@
 ---
 # tasks file for vagrant
+
 - name: Install Virtual Box
   apt:
     name: "virtualbox"
@@ -28,3 +29,11 @@
   shell:
     cmd: vagrant up
     chdir: "projects/{{ vagrant_project_folder }}"
+
+- name: Get insecure_private_key from vagrant_host
+  become: false
+  fetch: 
+    src: "~/.vagrant.d/insecure_private_key" 
+    dest: "~/.ssh/vagrant_key"
+    flat: true
+  tags: fetch
