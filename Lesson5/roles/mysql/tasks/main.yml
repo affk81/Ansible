@@ -44,9 +44,18 @@
     state: present
 
 
-- name: Create user for DB Wordbress
+- name: Create user for DB Wordpress
   mysql_user:
     name: "{{ mysql_user }}"
-    host: localhost
+    host: "%"
     password: "{{ mysql_password }}"
-    priv: "{{ mysql_db }}.*:ALL"
+    priv: "{{ mysql_db }}.*:ALL,GRANT"
+
+- name: Change MYSQL bind address
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: ^(bind-address).*
+    line: bind-address = 0.0.0.0
+    owner: root
+    group: root
+    mode: 0644

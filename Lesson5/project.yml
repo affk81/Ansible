@@ -17,6 +17,7 @@
 - hosts: app_servers
 
   vars_files:
+    - vars/project.yml
     - vars/project_vault.yml
   roles:
     - appserver
