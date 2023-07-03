@@ -7,22 +7,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "data_server" do |data_server|
     data_server.vm.box = "ubuntu/focal64"
     data_server.vm.network "public_network", ip: "192.168.2.80"
+    data_server.vm.hostname = "db"
 
   end
   
   config.vm.define "app_server1" do |app_server1|
     app_server1.vm.box = "ubuntu/focal64"
     app_server1.vm.network "public_network", ip: "192.168.2.81"
+    app_server1.vm.hostname = "app1"
   end
 
   config.vm.define "app_server2" do |app_server2|
     app_server2.vm.box = "ubuntu/focal64"
     app_server2.vm.network "public_network", ip: "192.168.2.82"
+    app_server2.vm.hostname = "app2"
   end
 
   config.vm.define "proxy_server" do |proxy_server|
     proxy_server.vm.box = "ubuntu/focal64"
     proxy_server.vm.network "public_network", ip: "192.168.2.83"
+    proxy_server.vm.hostname = "proxy"
   end
  
 end 
