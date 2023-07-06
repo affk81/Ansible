@@ -1,6 +1,9 @@
 ---
 vagrant_project_folder: "vagrant_prj"
 db_host: "192.168.2.80"
+app1_host: "192.168.2.81"
+app2_host: "192.168.2.82"
+proxy_host: "192.168.2.83"
 
 server_name: "wordpress.loc"
 nginx_listen: "80"

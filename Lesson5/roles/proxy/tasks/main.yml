@@ -1,0 +1,18 @@
+---
+# tasks file for proxy
+- name: Install Haproxy
+  apt:
+    name: "haproxy"
+    update_cache: true
+    state: present
+
+- name: Set up Haproxy config
+  template:
+    src: proxycfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+  notify: 
+    - Restart Haproxy service
+    

@@ -24,6 +24,8 @@
     owner: root
     group: root
     mode: 0644
+  notify: 
+    - Restart NGINX
 
 - name: create /var/www/{{ server_name }}
   file:

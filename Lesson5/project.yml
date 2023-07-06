@@ -21,3 +21,10 @@
     - vars/project_vault.yml
   roles:
     - appserver
+
+- hosts: proxy_server
+
+  vars_files:
+    - vars/project.yml
+  roles:
+    - proxy
